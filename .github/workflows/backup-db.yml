@@ -25,4 +25,4 @@ jobs:
         env:
           MYSQL_PWD: ${{ secrets.DB_PASSWORD }}
         run: |
-          mysqldump -h 127.0.0.1 -u ghost ghost | gzip > ${{ steps.filename.outputs.filename }}
+          mysqldump -h 127.0.0.1 -u ghost ghost --no-tablespaces | gzip > ${{ steps.filename.outputs.filename }}
