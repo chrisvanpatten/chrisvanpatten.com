@@ -1,0 +1,34 @@
+# fly.toml app configuration file generated for chrisvanpatten-mysql on 2024-10-08T09:54:14-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'chrisvanpatten-mysql'
+primary_region = 'ord'
+
+[build]
+  image = 'mysql:8'
+
+[env]
+  MYSQL_DATABASE = 'ghost'
+  MYSQL_USER = 'ghost'
+
+[processes]
+  app = '--datadir /data/mysql --mysql-native-password=ON --performance-schema=OFF --innodb-buffer-pool-size 64M'
+
+[[mounts]]
+  source = 'mysql_data'
+  destination = '/data'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
