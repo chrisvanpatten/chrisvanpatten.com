@@ -18,7 +18,7 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Start Fly.io database proxy
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_DB_TOKEN }}
         run: |
           flyctl proxy 3306 -a ${{ secrets.FLY_DB_NAME }} &
       - name: Backup database
