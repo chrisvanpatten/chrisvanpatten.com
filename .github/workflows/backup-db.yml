@@ -1,0 +1,28 @@
+name: Backup database
+ 
+on:
+  workflow_dispatch:
+ 
+jobs:
+  backup-db:
+    name: Backup DB
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Generate backup filename
+        id: filename
+        run: |
+          CURRENT_DATE=$(date +"%Y-%m-%d_%H-%M-%S")
+          echo "filename=backup_${CURRENT_DATE}.gz" >> "$GITHUB_OUTPUT"
+      - name: Setup Fly.io CLI
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Start Fly.io database proxy
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          flyctl proxy 3306 -a ${{ secrets.FLY_DB_NAME }} &
+      - name: Backup database
+        env:
+          MYSQL_PWD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          mysqldump -u ghost -p ghost | gzip > ${{ steps.filename.outputs.filename }}
