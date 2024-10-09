@@ -32,3 +32,17 @@ $ flyctl proxy 13306:3306 -a chrisvanpatten-mysql
 
 # Connect from your preferred interface of choice (mysql CLI, TablePlus, etc)
 ```
+
+## SSL & Domains
+
+```
+$ fly ips list -a chrisvanpatten
+# Set A record for domain from machine IP, cname www to chrisvanpatten.fly.dev
+
+$ flyctl certs create chrisvanpatten.com
+$ flyctl certs create www.chrisvanpatten.com
+# Get more domain records, including validation-only CNAMEs, from the fly.io UI
+
+# Update .env with new domain
+$ cat ./chrisvanpatten/.env | flyctl secrets import -a chrisvanpatten
+```
