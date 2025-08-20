@@ -2,7 +2,7 @@
 
 flyctl launch \
 	--name chrisvanpatten \
-	--image=ghost:5-alpine \
+	--image=ghost:6-alpine \
 	--vm-memory 512 \
 	--region ord \
 	--no-deploy \

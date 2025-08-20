@@ -7,7 +7,7 @@ app = 'chrisvanpatten'
 primary_region = 'ord'
 
 [build]
-  image = 'ghost:5-alpine'
+  image = 'ghost:6-alpine'
 
 [http_service]
   internal_port = 2368
