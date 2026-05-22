@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Prevent fly from auto-updating and breaking the upgrade process
+export FLY_NO_UPDATE_CHECK=1
+
 # Provide the path to mysqldump
 export MYSQLDUMP_LOCATION="/usr/local/opt/mysql-client/bin/mysqldump"
 
